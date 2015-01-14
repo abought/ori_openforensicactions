@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <style>
+   body {
+     margin: 0px;
+      padding: 0px;
+   }
+   #myCanvas {
+     border: 1px solid #9C9898;
+   }
+  </style>
+ <script>
+  window.onload = function() {
+    var canvas = document.getElementById("myCanvas");
+    var context = canvas.getContext("2d");
+    var imageObj = new Image();
+
+    imageObj.onload = function() {
+      canvas.width = imageObj.width;  /* TODO: autoscale to a max canvas size */
+      canvas.height = imageObj.height;
+      context.drawImage(imageObj, 0, 0);
+
+    };
+    imageObj.src = "../sample/deposition/paper_fig1d_magnified.png";
+  };
+    // document.getElementById('load_image').addEventListener('change')
+</script>
+</head>
+<body>
+  <canvas id="myCanvas"></canvas>
+
+  <p>Select an image to preview: <input type="file" id="load_image"></p>
+// TODO: File picker dialog
+// TODO: greyscale, then plotting and overlay of colormaps
+</body>
+</html>
