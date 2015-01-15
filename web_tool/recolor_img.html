@@ -7,61 +7,87 @@
      margin: 0px;
       padding: 0px;
    }
-   #myCanvas {
+   #display_image {
      border: 1px solid #9C9898;
    }
   </style>
   <script language="JavaScript" src="js/fabric.js"></script>
  <script>
-  window.onload = function() {
-    /*
-    var canvas = document.getElementById("myCanvas");
-    var context = canvas.getContext("2d");
-    var imageObj = new Image();
-
-    imageObj.onload = function() {
-      canvas.width = imageObj.width;  // TODO: autoscale to a max canvas size
-      canvas.height = imageObj.height;
-      context.drawImage(imageObj, 0, 0);
-
+    window.onload = function() {
+        image_from_url("../sample/deposition/paper_fig1d_magnified.png");
     };
-    imageObj.src = "../sample/deposition/paper_fig1d_magnified.png";
-  */
-  //document.getElementById('pick_image').addEventListener('change', image_loader, false ); // TODO implement
 
-
-      image_loader("../sample/deposition/paper_fig1d_magnified.png");
-
-  };
-
-  function image_loader(url){
+    function image_from_url(url){
       var canvas = new fabric.Canvas('display_image');
 
-      fabric.Image.fromURL(url, function(img){
+      fabric.Image.fromURL(url, function(img) {
           canvas.setWidth(img.width);
           canvas.setHeight(img.height);
 
           img.filters.push(new fabric.Image.filters.Grayscale());
 
           // apply filters and re-render canvas when done
+
+          img.setGradient('fill', {
+                  type: 'linear',
+                  x1: -img.width / 2,
+                  y1: 0,
+                  x2: img.width / 2,
+                  y2: 0,
+                  colorStops: {
+                      0: 'red',
+                      0.5: '#005555',
+                      1: 'rgba(0,0,255,0.5)'
+              }
+
+          });
+
           img.applyFilters(canvas.renderAll.bind(canvas));
 
+
+          canvas.clear().renderAll();
           canvas.add(img);
+
       });
 
       // TODO: enable zooming
-  }
+    }
 
-  function render_file(event){
-      var img_data = event.target.files[0];
-      if (!img_data.type.match("image")){
-          console.log("This is not an image, and cannot be displayed");
-      } else {
-          var url = "../sample/deposition/paper_fig1d_magnified.png";
-          image_loader(url);
-      }
+    function image_from_fileblob(blob){
+        if (!blob.type.match("image.*")) {
+            console.log('Specified file blob is not an image')
+        } else {
 
-  }
+            var canvas = new fabric.Canvas('display_image');
+
+            var reader = new FileReader();
+            /// Load file data to the image object that FabricJS requires
+            reader.onload = function(event){
+                var imgData = new Image();
+                imgData.src = event.target.result;
+                imgData.onload = function(){
+                    var image = new fabric.Image(
+                            imgData,
+                            {},
+                            'anonymous');
+                    console.log("wh", imgData.width, imgData.height);
+                    canvas.setWidth(imgData.width);
+                    canvas.setHeight(imgData.height);
+                    canvas.clear().renderAll();
+                    canvas.add(image);
+                };
+
+            };
+            reader.readAsDataURL(blob);
+        }
+    }
+
+    function render_file(event){
+        var img_blob = event.target.files[0];
+        console.log(event, img_blob);
+        image_from_fileblob(img_blob);
+    }
+
 
 </script>
 </head>
@@ -70,7 +96,7 @@
       <canvas id="display_image"></canvas>
   </div>
 
-  <p>Select an image to preview: <input type="file" id="pick_image" onchange="render_file()"></p>
+  <p>Select an image to preview: <input type="file" id="pick_image" onchange="render_file(event)"></p>
 // TODO: File picker dialog
 </body>
 </html>
