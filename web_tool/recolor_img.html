@@ -15,6 +15,7 @@
  <script>
     window.onload = function() {
         image_from_url("../sample/deposition/paper_fig1d_magnified.png");
+        add_gradient();  // TODO: Implement auto-addition of gradients w/colorstops
     };
 
     function image_from_url(url){
@@ -89,6 +90,32 @@
     }
 
 
+     function add_gradient(grad_name, color_stops){
+         // Add a new rectangular canvas with fill representing specified gradient
+         // TODO: Change to any grad box
+         var grad_box = document.getElementById("low_cycle_gradients");
+
+
+          //TODO fix
+          var newCanvas = document.createElement("canvas");
+
+         grad_box.appendChild(newCanvas);
+
+         var gradCanvas = new fabric.Canvas(newCanvas,
+                 {width: 500, height:20});
+
+         var rect = new fabric.Rect({
+             fill: 'red',
+             width: gradCanvas.width,
+             height: gradCanvas.height
+         });
+         console.log(rect.width, rect.height);
+         gradCanvas.add(rect);
+         gradCanvas.renderAll();
+
+         // TODO Implement putimagedata() to change data on canvas later
+         // TODO: implement display of chosen gradients
+     }
 </script>
 </head>
 <body>
@@ -97,6 +124,10 @@
   </div>
 
   <p>Select an image to preview: <input type="file" id="pick_image" onchange="render_file(event)"></p>
-// TODO: File picker dialog
+
+  <div id="low_cycle_gradients"></div>
+  <div id="mid_cycle_gradients"></div>
+  <div id="high_cycle_gradients"></div>
+
 </body>
 </html>
