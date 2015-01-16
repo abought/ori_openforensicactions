@@ -6,16 +6,29 @@
    body {
      margin: 0px;
       padding: 0px;
+       font-family: sans-serif;
    }
    #display_image {
      border: 1px solid #9C9898;
    }
   </style>
   <script language="JavaScript" src="js/fabric.js"></script>
+  <script language="JavaScript" src="js/gradient_data.js"></script>
+
  <script>
     window.onload = function() {
         image_from_url("../sample/deposition/paper_fig1d_magnified.png");
-        add_gradient();  // TODO: Implement auto-addition of gradients w/colorstops
+
+        var k;
+        for (k in lowCycle){
+            add_gradient(k, lowCycle[k]);
+        }
+        for (k in midCycle){
+            add_gradient(k, midCycle[k]);
+        }
+        for (k in highCycle){
+            add_gradient(k, highCycle[k]);
+        }
     };
 
     function image_from_url(url){
@@ -71,7 +84,6 @@
                             imgData,
                             {},
                             'anonymous');
-                    console.log("wh", imgData.width, imgData.height);
                     canvas.setWidth(imgData.width);
                     canvas.setHeight(imgData.height);
                     canvas.clear().renderAll();
@@ -92,26 +104,27 @@
 
      function add_gradient(grad_name, color_stops){
          // Add a new rectangular canvas with fill representing specified gradient
-         // TODO: Change to any grad box
-         var grad_box = document.getElementById("low_cycle_gradients");
+         var gradientBox = document.getElementById("gradients");
 
+         var grdCanvas = document.createElement("canvas");
+         grdCanvas.width = 256;
+         grdCanvas.height = 20;
 
-          //TODO fix
-          var newCanvas = document.createElement("canvas");
+         var ctx = grdCanvas.getContext('2d');
+         var grd = ctx.createLinearGradient(0, 0, grdCanvas.width, 0);
 
-         grad_box.appendChild(newCanvas);
+         var stop;
+         for (var i=0; i < color_stops.length; i++){
+             grd.addColorStop(color_stops[i][0], color_stops[i][1]);
+         }
+         ctx.fillStyle = grd;
+         ctx.fillRect(0, 0, grdCanvas.width, grdCanvas.height);
 
-         var gradCanvas = new fabric.Canvas(newCanvas,
-                 {width: 500, height:20});
-
-         var rect = new fabric.Rect({
-             fill: 'red',
-             width: gradCanvas.width,
-             height: gradCanvas.height
-         });
-         console.log(rect.width, rect.height);
-         gradCanvas.add(rect);
-         gradCanvas.renderAll();
+         var container = document.createElement('div');
+         var label = document.createTextNode(grad_name);
+         container.appendChild(label);
+         container.appendChild(grdCanvas);
+         gradientBox.appendChild(container);
 
          // TODO Implement putimagedata() to change data on canvas later
          // TODO: implement display of chosen gradients
@@ -125,9 +138,6 @@
 
   <p>Select an image to preview: <input type="file" id="pick_image" onchange="render_file(event)"></p>
 
-  <div id="low_cycle_gradients"></div>
-  <div id="mid_cycle_gradients"></div>
-  <div id="high_cycle_gradients"></div>
-
+  <div id="gradients"></div>
 </body>
 </html>
