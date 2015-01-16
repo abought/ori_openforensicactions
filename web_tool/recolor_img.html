@@ -17,7 +17,10 @@
 
  <script>
     window.onload = function() {
-        image_from_url("../sample/deposition/paper_fig1d_magnified.png");
+        image_from_url("../sample/deposition/paper_fig1d_magnified.png");  // TODO remove
+
+
+        //recolor_img(); // todo remove
 
         var k;
         for (k in lowCycle){
@@ -38,30 +41,12 @@
           canvas.setWidth(img.width);
           canvas.setHeight(img.height);
 
-          img.filters.push(new fabric.Image.filters.Grayscale());
-
           // apply filters and re-render canvas when done
-
-          img.setGradient('fill', {
-                  type: 'linear',
-                  x1: -img.width / 2,
-                  y1: 0,
-                  x2: img.width / 2,
-                  y2: 0,
-                  colorStops: {
-                      0: 'red',
-                      0.5: '#005555',
-                      1: 'rgba(0,0,255,0.5)'
-              }
-
-          });
-
+          img.filters.push(new fabric.Image.filters.Grayscale());
           img.applyFilters(canvas.renderAll.bind(canvas));
-
 
           canvas.clear().renderAll();
           canvas.add(img);
-
       });
 
       // TODO: enable zooming
@@ -97,7 +82,6 @@
 
     function render_file(event){
         var img_blob = event.target.files[0];
-        console.log(event, img_blob);
         image_from_fileblob(img_blob);
     }
 
@@ -113,7 +97,6 @@
          var ctx = grdCanvas.getContext('2d');
          var grd = ctx.createLinearGradient(0, 0, grdCanvas.width, 0);
 
-         var stop;
          for (var i=0; i < color_stops.length; i++){
              grd.addColorStop(color_stops[i][0], color_stops[i][1]);
          }
@@ -126,8 +109,48 @@
          container.appendChild(grdCanvas);
          gradientBox.appendChild(container);
 
+         // Add event listener only after gradient filled in
+         grdCanvas.onclick = function(){ recolor_img(grdCanvas); //recolor_img(grdCanvas)
+         };
+
          // TODO Implement putimagedata() to change data on canvas later
          // TODO: implement display of chosen gradients
+     }
+
+     function recolor_img(grdCanvas){
+         // Apply the given gradient data to an image
+         var imgCvs = document.getElementById("display_image");
+         var imgCtx = imgCvs.getContext('2d');
+         var imgData = imgCtx.getImageData(0, 0, imgCvs.width, imgCvs.height);
+
+         var imgOrig = imgData.data;
+         var imgRecolor = imgData.data;
+
+         var grdCtx = grdCanvas.getContext('2d');
+         var grdData = grdCtx.getImageData(0, 0, grdCanvas.width, grdCanvas.height);
+         var grdArr = grdData.data;
+
+         // TODO: for every pixel in array,
+         // colorization method from: http://podeplace.blogspot.com/2012/12/pseudocolorisation-with-javascript.html
+         for(var y = 0; y < imgCvs.height; y++) {
+             for (var x = 0; x < imgCvs.width; x++) {
+                 var index = (x + y * imgCvs.width) * 4;
+
+                 //we grab the color from one channel (the red one)
+                 var luminosityValue = imgOrig[index + 0];
+
+                 //we retrieve the corresponding (R,G,B) triplet from the colormap
+                 //we rewrite the new color
+                 imgRecolor[index + 0] = grdArr[luminosityValue * 4 + 0]; //R
+                 imgRecolor[index + 1] = grdArr[luminosityValue * 4 + 1]; //G
+                 imgRecolor[index + 2] = grdArr[luminosityValue * 4 + 2]; //B
+                 //dataRes[index+3] = 255; //no need to change alpha value
+             }}
+         imgData.data = imgRecolor;
+         imgCtx.putImageData(imgData, 0, 0);
+
+        // TODO: reimplement this as a new fabric filter for every gradient a la redify implementation
+
      }
 </script>
 </head>
