@@ -12,7 +12,6 @@
      border: 1px solid #9C9898;
    }
   </style>
-  <script language="JavaScript" src="js/fabric.js"></script>
   <script language="JavaScript" src="js/gradient_data.js"></script>
 
  <script>
@@ -35,29 +34,31 @@
     };
 
     function image_from_url(url){
-      var canvas = new fabric.Canvas('display_image');
+        console.log("asked to render url: ", url);
+        var canvas = document.getElementById('display_image');
 
-      fabric.Image.fromURL(url, function(img) {
-          canvas.setWidth(img.width);
-          canvas.setHeight(img.height);
+        var imgData = new Image();
+        imgData.crossOrigin = 'anonymous';
+        imgData.src = url;
 
-          // apply filters and re-render canvas when done
-          img.filters.push(new fabric.Image.filters.Grayscale());
-          img.applyFilters(canvas.renderAll.bind(canvas));
 
-          canvas.clear().renderAll();
-          canvas.add(img);
-      });
+        imgData.onload = function(){
+            var ctx = canvas.getContext('2d');
 
-      // TODO: enable zooming
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.width = imgData.width;
+            canvas.height = imgData.height;
+            ctx.drawImage(imgData, 0, 0);
+
+            greyScaleImg(canvas);
+        };
     }
 
     function image_from_fileblob(blob){
         if (!blob.type.match("image.*")) {
             console.log('Specified file blob is not an image')
         } else {
-
-            var canvas = new fabric.Canvas('display_image');
+            var canvas = document.getElementById('display_image');
 
             var reader = new FileReader();
             /// Load file data to the image object that FabricJS requires
@@ -65,14 +66,14 @@
                 var imgData = new Image();
                 imgData.src = event.target.result;
                 imgData.onload = function(){
-                    var image = new fabric.Image(
-                            imgData,
-                            {},
-                            'anonymous');
-                    canvas.setWidth(imgData.width);
-                    canvas.setHeight(imgData.height);
-                    canvas.clear().renderAll();
-                    canvas.add(image);
+                    var ctx = canvas.getContext('2d');
+
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    canvas.width = imgData.width;
+                    canvas.height = imgData.height;
+                    ctx.drawImage(imgData, 0, 0);
+
+                    greyScaleImg(canvas);
                 };
 
             };
@@ -117,6 +118,38 @@
          // TODO: implement display of chosen gradients
      }
 
+    function applyGradient(canvasEl){
+        // Function to be used by fabric.js to define gradient
+
+    }
+
+    function greyScaleImg(canvas){
+        // Given a canvas rendering of an image, convert to greyscale
+        var ctx = canvas.getContext("2d");
+
+        //grayscale the image
+        var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        var data = imageData.data;
+
+        for(var i = 0; i < data.length; i += 4) {
+            var brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
+            //YUV -> PAL/NTSC
+            //var brightness = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+            data[i] = brightness; // red
+            data[i + 1] = brightness; // green
+            data[i + 2] = brightness; // blue
+        }
+        ctx.putImageData(imageData,0,0);
+    }
+
+    function saveCanvas(linkEl){
+        // Save the modified/ recolored image data to a file
+        var canvas = document.getElementById("display_image");
+        var dataURL = canvas.toDataURL('image/png');
+        linkEl.href = dataURL;
+
+    }
+
      function recolor_img(grdCanvas){
          // Apply the given gradient data to an image
          var imgCvs = document.getElementById("display_image");
@@ -159,7 +192,13 @@
       <canvas id="display_image"></canvas>
   </div>
 
-  <p>Select an image to preview: <input type="file" id="pick_image" onchange="render_file(event)"></p>
+  <form>
+    <p>Select an image file to preview: <input type="file" id="pick_image" onchange="render_file(event)"/></p>
+      <p><a href="#" onclick="saveCanvas(this)" download="recolor.png">Save image data</a></p>
+      <!-- TODO: This feature doesn't seem to work for remote urls; no error messages
+        <p> OR enter the URL of an image on the web: <input type="text" onchange="image_from_url(this.value)"/></p>
+      -->
+  </form>
 
   <div id="gradients"></div>
 </body>
