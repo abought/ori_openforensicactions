@@ -352,7 +352,7 @@ PresetsGradientsMetals_grdSilverSilver = LinearSegmentedColormap(
     PresetsGradientsMetals_grdSilverSilver_data)
 plt.register_cmap(cmap=PresetsGradientsMetals_grdSilverSilver)
 
-Custom_19_data = {'blue': [(0.0, 1.0, 1.0),
+mid_19_data = {'blue': [(0.0, 1.0, 1.0),
                            (0.25, 0.996, 0.996),
                            (0.5, 0.0, 0.0),
                            (0.75, 0.992, 0.992),
@@ -367,8 +367,8 @@ Custom_19_data = {'blue': [(0.0, 1.0, 1.0),
                           (0.5, 0.0, 0.0),
                           (0.75, 0.992, 0.992),
                           (1.0, 0.004, 0.004)]}
-Custom_19 = LinearSegmentedColormap('Custom_19', Custom_19_data)
-plt.register_cmap(cmap=Custom_19)
+mid_19 = LinearSegmentedColormap('mid_19', mid_19_data)
+plt.register_cmap(cmap=mid_19)
 
 SteelBar_data = {
 'blue': [(0.0, 0.0, 0.0), (0.7, 0.996, 0.996), (1.0, 0.004, 0.004)],
@@ -377,7 +377,7 @@ SteelBar_data = {
 SteelBar = LinearSegmentedColormap('SteelBar', SteelBar_data)
 plt.register_cmap(cmap=SteelBar)
 
-Custom_21_data = {'blue': [(0.0, 0.008, 0.008),
+mid_21_data = {'blue': [(0.0, 0.008, 0.008),
                            (0.25, 0.878, 0.878),
                            (0.5, 0.0, 0.0),
                            (0.75, 0.898, 0.898),
@@ -392,8 +392,8 @@ Custom_21_data = {'blue': [(0.0, 0.008, 0.008),
                           (0.5, 0.78, 0.78),
                           (0.75, 1.0, 1.0),
                           (1.0, 0.624, 0.624)]}
-Custom_21 = LinearSegmentedColormap('Custom_21', Custom_21_data)
-plt.register_cmap(cmap=Custom_21)
+mid_21 = LinearSegmentedColormap('mid_21', mid_21_data)
+plt.register_cmap(cmap=mid_21)
 
 ALL_GRADIENTS = ['Spectrum_0',
                  'RedBlueYellow',
@@ -414,7 +414,7 @@ ALL_GRADIENTS = ['Spectrum_0',
                  'OrangePurpleRed',
                  'GoldTealGreen',
                  'PresetsGradientsMetals_grdSilverSilver',
-                 'Custom_19',
+                 'mid_19',
                  'SteelBar',
-                 'Custom_21']
+                 'mid_21']
 

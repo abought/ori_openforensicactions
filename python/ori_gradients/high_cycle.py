@@ -7,38 +7,6 @@ Adapted from http://ori.hhs.gov/advanced-forensic-actions
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 
-Copper_data = {'blue': [(0.0, 0.102, 0.102),
-                        (0.3, 0.772, 0.772),
-                        (0.83, 0.086, 0.086),
-                        (1.0, 0.804, 0.804)],
-               'green': [(0.0, 0.275, 0.275),
-                         (0.3, 0.847, 0.847),
-                         (0.83, 0.18, 0.18),
-                         (1.0, 0.859, 0.859)],
-               'red': [(0.0, 0.592, 0.592),
-                       (0.3, 0.984, 0.984),
-                       (0.83, 0.424, 0.424),
-                       (1.0, 0.937, 0.937)]}
-Copper = LinearSegmentedColormap('Copper', Copper_data)
-plt.register_cmap(cmap=Copper)
-
-Chrome_data = {'blue': [(0.0, 0.8, 0.8),
-                        (0.5, 1.0, 1.0),
-                        (0.52, 0.0, 0.0),
-                        (0.64, 0.0, 0.0),
-                        (1.0, 1.0, 1.0)],
-               'green': [(0.0, 0.537, 0.537),
-                         (0.5, 1.0, 1.0),
-                         (0.52, 0.415, 0.415),
-                         (0.64, 0.625, 0.625),
-                         (1.0, 1.0, 1.0)],
-               'red': [(0.0, 0.16, 0.16),
-                       (0.5, 1.0, 1.0),
-                       (0.52, 0.565, 0.565),
-                       (0.64, 0.851, 0.851),
-                       (1.0, 1.0, 1.0)]}
-Chrome = LinearSegmentedColormap('Chrome', Chrome_data)
-plt.register_cmap(cmap=Chrome)
 
 TransparentRainbow_data = {'blue': [(0.0, 0.0, 0.0),
                                     (0.21, 0.0, 0.0),
@@ -62,22 +30,7 @@ TransparentRainbow = LinearSegmentedColormap('TransparentRainbow',
                                              TransparentRainbow_data)
 plt.register_cmap(cmap=TransparentRainbow)
 
-PresetsGradientsMetals_grdSteelBarSteelBar_data = {
-    'blue': [(0.0, 0.0, 0.0),
-             (0.7, 0.996, 0.996),
-             (1.0, 0.004, 0.004)],
-    'green': [(0.0, 0.0, 0.0),
-              (0.7, 0.996, 0.996),
-              (1.0, 0.004, 0.004)],
-    'red': [(0.0, 0.0, 0.0),
-            (0.7, 0.996, 0.996),
-            (1.0, 0.004, 0.004)]}
-PresetsGradientsMetals_grdSteelBarSteelBar = LinearSegmentedColormap(
-    'PresetsGradientsMetals_grdSteelBarSteelBar',
-    PresetsGradientsMetals_grdSteelBarSteelBar_data)
-plt.register_cmap(cmap=PresetsGradientsMetals_grdSteelBarSteelBar)
-
-Custom_4_data = {'blue': [(0.0, 1.0, 1.0),
+high_4_data = {'blue': [(0.0, 1.0, 1.0),
                           (0.25, 0.996, 0.996),
                           (0.5, 0.0, 0.0),
                           (0.75, 0.992, 0.992),
@@ -92,10 +45,10 @@ Custom_4_data = {'blue': [(0.0, 1.0, 1.0),
                          (0.5, 0.0, 0.0),
                          (0.75, 0.992, 0.992),
                          (1.0, 0.004, 0.004)]}
-Custom_4 = LinearSegmentedColormap('Custom_4', Custom_4_data)
-plt.register_cmap(cmap=Custom_4)
+high_4 = LinearSegmentedColormap('high_4', high_4_data)
+plt.register_cmap(cmap=high_4)
 
-Custom_5_data = {'blue': [(0.0, 0.0, 0.0),
+high_5_data = {'blue': [(0.0, 0.0, 0.0),
                           (0.292, 0.233, 0.233),
                           (0.531, 0.047, 0.047),
                           (0.733, 1.0, 1.0),
@@ -110,10 +63,10 @@ Custom_5_data = {'blue': [(0.0, 0.0, 0.0),
                          (0.531, 1.0, 1.0),
                          (0.733, 0.0, 0.0),
                          (1.0, 0.182, 0.182)]}
-Custom_5 = LinearSegmentedColormap('Custom_5', Custom_5_data)
-plt.register_cmap(cmap=Custom_5)
+high_5 = LinearSegmentedColormap('high_5', high_5_data)
+plt.register_cmap(cmap=high_5)
 
-Custom_6_data = {'blue': [(0.0, 0.906, 0.906),
+high_6_data = {'blue': [(0.0, 0.906, 0.906),
                           (0.25, 0.957, 0.957),
                           (0.5, 0.8, 0.8),
                           (0.75, 0.957, 0.957),
@@ -128,10 +81,10 @@ Custom_6_data = {'blue': [(0.0, 0.906, 0.906),
                          (0.5, 0.0, 0.0),
                          (0.75, 0.914, 0.914),
                          (1.0, 0.011, 0.011)]}
-Custom_6 = LinearSegmentedColormap('Custom_6', Custom_6_data)
-plt.register_cmap(cmap=Custom_6)
+high_6 = LinearSegmentedColormap('high_6', high_6_data)
+plt.register_cmap(cmap=high_6)
 
-Custom_7_data = {'blue': [(0.0, 0.983, 0.983),
+high_7_data = {'blue': [(0.0, 0.983, 0.983),
                           (0.071, 0.856, 0.856),
                           (0.1, 0.0, 0.0),
                           (0.137, 0.984, 0.984),
@@ -176,10 +129,10 @@ Custom_7_data = {'blue': [(0.0, 0.983, 0.983),
                          (0.775, 1.0, 1.0),
                          (0.938, 1.0, 1.0),
                          (1.0, 1.0, 1.0)]}
-Custom_7 = LinearSegmentedColormap('Custom_7', Custom_7_data)
-plt.register_cmap(cmap=Custom_7)
+high_7 = LinearSegmentedColormap('high_7', high_7_data)
+plt.register_cmap(cmap=high_7)
 
-Custom_8_data = {'blue': [(0.0, 0.856, 0.856),
+high_8_data = {'blue': [(0.0, 0.856, 0.856),
                           (0.061, 0.983, 0.983),
                           (0.115, 1.0, 1.0),
                           (0.162, 0.984, 0.984),
@@ -224,10 +177,10 @@ Custom_8_data = {'blue': [(0.0, 0.856, 0.856),
                          (0.738, 1.0, 1.0),
                          (0.905, 1.0, 1.0),
                          (1.0, 0.019, 0.019)]}
-Custom_8 = LinearSegmentedColormap('Custom_8', Custom_8_data)
-plt.register_cmap(cmap=Custom_8)
+high_8 = LinearSegmentedColormap('high_8', high_8_data)
+plt.register_cmap(cmap=high_8)
 
-Custom_9_data = {'blue': [(0.0, 0.101, 0.101),
+high_9_data = {'blue': [(0.0, 0.101, 0.101),
                           (0.25, 0.878, 0.878),
                           (0.462, 0.0, 0.0),
                           (0.726, 0.898, 0.898),
@@ -242,8 +195,8 @@ Custom_9_data = {'blue': [(0.0, 0.101, 0.101),
                          (0.462, 0.0, 0.0),
                          (0.726, 1.0, 1.0),
                          (1.0, 0.003, 0.003)]}
-Custom_9 = LinearSegmentedColormap('Custom_9', Custom_9_data)
-plt.register_cmap(cmap=Custom_9)
+high_9 = LinearSegmentedColormap('high_9', high_9_data)
+plt.register_cmap(cmap=high_9)
 
 PresetsGradientsMetals_grdGoldGold_data = {'blue': [(0.0, 0.235, 0.235),
                                                     (0.25, 0.878, 0.878),
@@ -265,7 +218,7 @@ PresetsGradientsMetals_grdGoldGold = LinearSegmentedColormap(
     PresetsGradientsMetals_grdGoldGold_data)
 plt.register_cmap(cmap=PresetsGradientsMetals_grdGoldGold)
 
-Custom_11_data = {'blue': [(0.0, 0.0, 0.0),
+high_11_data = {'blue': [(0.0, 0.0, 0.0),
                            (0.251, 0.878, 0.878),
                            (0.502, 0.0, 0.0),
                            (0.753, 0.898, 0.898),
@@ -280,8 +233,8 @@ Custom_11_data = {'blue': [(0.0, 0.0, 0.0),
                           (0.502, 1.0, 1.0),
                           (0.753, 1.0, 1.0),
                           (1.0, 1.0, 1.0)]}
-Custom_11 = LinearSegmentedColormap('Custom_11', Custom_11_data)
-plt.register_cmap(cmap=Custom_11)
+high_11 = LinearSegmentedColormap('high_11', high_11_data)
+plt.register_cmap(cmap=high_11)
 
 RedBlueWhite_data = {'blue': [(0.0, 0.457, 0.457),
                               (0.0, 0.856, 0.856),
@@ -316,7 +269,7 @@ RedBlueWhite_data = {'blue': [(0.0, 0.457, 0.457),
 RedBlueWhite = LinearSegmentedColormap('RedBlueWhite', RedBlueWhite_data)
 plt.register_cmap(cmap=RedBlueWhite)
 
-Custom_13_data = {'blue': [(0.0, 0.457, 0.457),
+high_13_data = {'blue': [(0.0, 0.457, 0.457),
                            (0.0, 0.856, 0.856),
                            (0.084, 0.603, 0.603),
                            (0.179, 0.0, 0.0),
@@ -346,8 +299,8 @@ Custom_13_data = {'blue': [(0.0, 0.457, 0.457),
                           (0.717, 1.0, 1.0),
                           (0.859, 0.297, 0.297),
                           (1.0, 1.0, 1.0)]}
-Custom_13 = LinearSegmentedColormap('Custom_13', Custom_13_data)
-plt.register_cmap(cmap=Custom_13)
+high_13 = LinearSegmentedColormap('high_13', high_13_data)
+plt.register_cmap(cmap=high_13)
 
 custom_data = {'blue': [(0.0, 0.028, 0.028),
                         (1.0, 0.973, 0.973)],
@@ -466,7 +419,7 @@ cycle_17_data = {'blue': [(0.0, 0.133, 0.133),
 cycle_17 = LinearSegmentedColormap('cycle_17', cycle_17_data)
 plt.register_cmap(cmap=cycle_17)
 
-Custom_18_data = {'blue': [(0.0, 0.007, 0.007),
+high_18_data = {'blue': [(0.0, 0.007, 0.007),
                            (0.12, 0.925, 0.925),
                            (0.229, 0.0, 0.0),
                            (0.358, 0.722, 0.722),
@@ -496,10 +449,10 @@ Custom_18_data = {'blue': [(0.0, 0.007, 0.007),
                           (0.803, 0.05, 0.05),
                           (0.921, 0.942, 0.942),
                           (1.0, 0.0, 0.0)]}
-Custom_18 = LinearSegmentedColormap('Custom_18', Custom_18_data)
-plt.register_cmap(cmap=Custom_18)
+high_18 = LinearSegmentedColormap('high_18', high_18_data)
+plt.register_cmap(cmap=high_18)
 
-Custom_19_data = {'blue': [(0.0, 0.925, 0.925),
+high_19_data = {'blue': [(0.0, 0.925, 0.925),
                            (0.097, 0.007, 0.007),
                            (0.239, 0.722, 0.722),
                            (0.379, 0.0, 0.0),
@@ -526,27 +479,24 @@ Custom_19_data = {'blue': [(0.0, 0.925, 0.925),
                           (0.761, 0.007, 0.007),
                           (0.883, 0.93, 0.93),
                           (1.0, 0.004, 0.004)]}
-Custom_19 = LinearSegmentedColormap('Custom_19', Custom_19_data)
-plt.register_cmap(cmap=Custom_19)
+high_19 = LinearSegmentedColormap('high_19', high_19_data)
+plt.register_cmap(cmap=high_19)
 
-ALL_GRADIENTS = ['Copper',
-                 'Chrome',
-                 'TransparentRainbow',
-                 'PresetsGradientsMetals_grdSteelBarSteelBar',
-                 'Custom_4',
-                 'Custom_5',
-                 'Custom_6',
-                 'Custom_7',
-                 'Custom_8',
-                 'Custom_9',
+ALL_GRADIENTS = ['TransparentRainbow',
+                 'high_4',
+                 'high_5',
+                 'high_6',
+                 'high_7',
+                 'high_8',
+                 'high_9',
                  'PresetsGradientsMetals_grdGoldGold',
-                 'Custom_11',
+                 'high_11',
                  'RedBlueWhite',
-                 'Custom_13',
+                 'high_13',
                  'custom',
                  'cycle_15',
                  'cycle_16',
                  'cycle_17',
-                 'Custom_18',
-                 'Custom_19']
+                 'high_18',
+                 'high_19']
 
