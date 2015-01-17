@@ -119,17 +119,22 @@ YellowGreenRedOrangeBlue = LinearSegmentedColormap('YellowGreenRedOrangeBlue',
                                                    YellowGreenRedOrangeBlue_data)
 plt.register_cmap(cmap=YellowGreenRedOrangeBlue)
 
-BlueRedYellow_data = {
-'blue': [(0.0, 0.698, 0.698), (0.5, 0.0, 0.0), (1.0, 0.0, 0.0)],
-'green': [(0.0, 0.0, 0.0), (0.5, 0.0, 0.0), (1.0, 0.988, 0.988)],
-'red': [(0.0, 0.038, 0.038), (0.5, 1.0, 1.0), (1.0, 1.0, 1.0)]}
+BlueRedYellow_data = {'blue': [(0.0, 0.698, 0.698),
+                               (0.5, 0.0, 0.0),
+                               (1.0, 0.0, 0.0)],
+                      'green': [(0.0, 0.0, 0.0),
+                                (0.5, 0.0, 0.0),
+                                (1.0, 0.988, 0.988)],
+                      'red': [(0.0, 0.038, 0.038),
+                              (0.5, 1.0, 1.0),
+                              (1.0, 1.0, 1.0)]}
 BlueRedYellow = LinearSegmentedColormap('BlueRedYellow', BlueRedYellow_data)
 plt.register_cmap(cmap=BlueRedYellow)
 
 BlueYellowBlue_data = {
-'blue': [(0.0, 0.722, 0.722), (0.5, 0.012, 0.012), (1.0, 0.667, 0.667)],
-'green': [(0.0, 0.006, 0.006), (0.5, 0.981, 0.981), (1.0, 0.008, 0.008)],
-'red': [(0.0, 0.044, 0.044), (0.5, 0.992, 0.992), (1.0, 0.043, 0.043)]}
+    'blue': [(0.0, 0.722, 0.722), (0.5, 0.012, 0.012), (1.0, 0.667, 0.667)],
+    'green': [(0.0, 0.006, 0.006), (0.5, 0.981, 0.981), (1.0, 0.008, 0.008)],
+    'red': [(0.0, 0.044, 0.044), (0.5, 0.992, 0.992), (1.0, 0.043, 0.043)]}
 BlueYellowBlue = LinearSegmentedColormap('BlueYellowBlue', BlueYellowBlue_data)
 plt.register_cmap(cmap=BlueYellowBlue)
 
@@ -332,66 +337,71 @@ GoldTealGreen_data = {'blue': [(0.0, 0.21, 0.21),
 GoldTealGreen = LinearSegmentedColormap('GoldTealGreen', GoldTealGreen_data)
 plt.register_cmap(cmap=GoldTealGreen)
 
-PresetsGradientsMetals_grdSilverSilver_data = {'blue': [(0.0, 0.369, 0.369),
-                                                        (0.25, 0.996, 0.996),
-                                                        (0.5, 0.329, 0.329),
-                                                        (0.75, 0.992, 0.992),
-                                                        (1.0, 0.369, 0.369)],
-                                               'green': [(0.0, 0.357, 0.357),
-                                                         (0.25, 0.996, 0.996),
-                                                         (0.5, 0.318, 0.318),
-                                                         (0.75, 0.992, 0.992),
-                                                         (1.0, 0.357, 0.357)],
-                                               'red': [(0.0, 0.326, 0.326),
-                                                       (0.25, 0.996, 0.996),
-                                                       (0.5, 0.29, 0.29),
-                                                       (0.75, 0.992, 0.992),
-                                                       (1.0, 0.326, 0.326)]}
-PresetsGradientsMetals_grdSilverSilver = LinearSegmentedColormap(
-    'PresetsGradientsMetals_grdSilverSilver',
-    PresetsGradientsMetals_grdSilverSilver_data)
-plt.register_cmap(cmap=PresetsGradientsMetals_grdSilverSilver)
+SilverSilver_data = {'blue': [(0.0, 0.369, 0.369),
+                              (0.25, 0.996, 0.996),
+                              (0.5, 0.329, 0.329),
+                              (0.75, 0.992, 0.992),
+                              (1.0, 0.369, 0.369)],
+                     'green': [(0.0, 0.357, 0.357),
+                               (0.25, 0.996, 0.996),
+                               (0.5, 0.318, 0.318),
+                               (0.75, 0.992, 0.992),
+                               (1.0, 0.357, 0.357)],
+                     'red': [(0.0, 0.326, 0.326),
+                             (0.25, 0.996, 0.996),
+                             (0.5, 0.29, 0.29),
+                             (0.75, 0.992, 0.992),
+                             (1.0, 0.326, 0.326)]}
+SilverSilver = LinearSegmentedColormap(
+    'SilverSilver',
+    SilverSilver_data)
+plt.register_cmap(cmap=SilverSilver)
 
 mid_19_data = {'blue': [(0.0, 1.0, 1.0),
-                           (0.25, 0.996, 0.996),
-                           (0.5, 0.0, 0.0),
-                           (0.75, 0.992, 0.992),
-                           (1.0, 1.0, 1.0)],
-                  'green': [(0.0, 0.047, 0.047),
-                            (0.25, 0.996, 0.996),
-                            (0.5, 0.0, 0.0),
-                            (0.75, 0.992, 0.992),
-                            (1.0, 0.004, 0.004)],
-                  'red': [(0.0, 0.0, 0.0),
-                          (0.25, 0.996, 0.996),
-                          (0.5, 0.0, 0.0),
-                          (0.75, 0.992, 0.992),
-                          (1.0, 0.004, 0.004)]}
+                        (0.25, 0.996, 0.996),
+                        (0.5, 0.0, 0.0),
+                        (0.75, 0.992, 0.992),
+                        (1.0, 1.0, 1.0)],
+               'green': [(0.0, 0.047, 0.047),
+                         (0.25, 0.996, 0.996),
+                         (0.5, 0.0, 0.0),
+                         (0.75, 0.992, 0.992),
+                         (1.0, 0.004, 0.004)],
+               'red': [(0.0, 0.0, 0.0),
+                       (0.25, 0.996, 0.996),
+                       (0.5, 0.0, 0.0),
+                       (0.75, 0.992, 0.992),
+                       (1.0, 0.004, 0.004)]}
 mid_19 = LinearSegmentedColormap('mid_19', mid_19_data)
 plt.register_cmap(cmap=mid_19)
 
-SteelBar_data = {
-'blue': [(0.0, 0.0, 0.0), (0.7, 0.996, 0.996), (1.0, 0.004, 0.004)],
-'green': [(0.0, 0.0, 0.0), (0.7, 0.996, 0.996), (1.0, 0.004, 0.004)],
-'red': [(0.0, 0.0, 0.0), (0.7, 0.996, 0.996), (1.0, 0.004, 0.004)]}
+SteelBar_data = {'blue': [(0.0, 0.0, 0.0),
+                          (0.7, 0.996, 0.996),
+                          (1.0, 0.004, 0.004)],
+                 'green': [(0.0, 0.0, 0.0),
+                           (0.7, 0.996, 0.996),
+                           (1.0, 0.004, 0.004)],
+                 'red': [(0.0, 0.0, 0.0),
+                         (0.7, 0.996, 0.996),
+                         (1.0, 0.004, 0.004)]}
 SteelBar = LinearSegmentedColormap('SteelBar', SteelBar_data)
 plt.register_cmap(cmap=SteelBar)
 
 mid_21_data = {'blue': [(0.0, 0.008, 0.008),
-                           (0.25, 0.878, 0.878),
-                           (0.5, 0.0, 0.0),
-                           (0.75, 0.898, 0.898),
-                           (1.0, 0.007, 0.007)],
-                  'green': [(0.0, 0.74, 0.74),
-                            (0.25, 0.965, 0.965),
-                            (0.5, 0.576, 0.576),
-                            (0.75, 0.969, 0.969),
-                            (1.0, 0.462, 0.462)],
-                  'red': [(0.0, 1.0, 1.0),
-                          (0.25, 1.0, 1.0),
-                          (0.5, 0.78, 0.78),
-                          (0.75, 1.0, 1.0),
-                          (1.0, 0.624, 0.624)]}
+                        (0.25, 0.878, 0.878),
+                        (0.5, 0.0, 0.0),
+                        (0.75, 0.898, 0.898),
+                        (1.0, 0.007, 0.007)],
+               'green': [(0.0, 0.74, 0.74),
+                         (0.25, 0.965, 0.965),
+                         (0.5, 0.576, 0.576),
+                         (0.75, 0.969, 0.969),
+                         (1.0, 0.462, 0.462)],
+               'red': [(0.0, 1.0, 1.0),
+                       (0.25, 1.0, 1.0),
+                       (0.5, 0.78, 0.78),
+                       (0.75, 1.0, 1.0),
+                       (1.0, 0.624, 0.624)]}
 mid_21 = LinearSegmentedColormap('mid_21', mid_21_data)
 plt.register_cmap(cmap=mid_21)
 
@@ -413,8 +423,7 @@ ALL_GRADIENTS = ['Spectrum_0',
                  'RedPurpleBlue',
                  'OrangePurpleRed',
                  'GoldTealGreen',
-                 'PresetsGradientsMetals_grdSilverSilver',
+                 'SilverSilver',
                  'mid_19',
                  'SteelBar',
                  'mid_21']
-
