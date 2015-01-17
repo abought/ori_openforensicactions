@@ -13,9 +13,12 @@
    }
   </style>
   <script language="JavaScript" src="js/gradient_data.js"></script>
+  <script>
 
- <script>
+    var STOREDIMAGE = new Image(); // Store the image data apart from the canvas
+
     window.onload = function() {
+
         imageFromURL("../sample/deposition/paper_fig1d_magnified.png");  // TODO remove
 
         var k;
@@ -32,7 +35,9 @@
 
     function imgToCanvas(imgData){
         // When an image is loaded, update the canvas drawing
-        console.log("firing onload " + imgData.src);
+
+        console.log("Event firing");
+
         var canvas = document.getElementById('display_image');
         var ctx = canvas.getContext('2d');
 
@@ -47,9 +52,16 @@
 
     function imageFromURL(url){
         //var imgData = new Image();
-        var imgStorage = document.getElementById("placeholder");
-        imgStorage.crossOrigin = 'anonymous';
-        imgStorage.src = url;
+        STOREDIMAGE = null;
+        STOREDIMAGE = new Image();
+        STOREDIMAGE.onload = function(){imgToCanvas(this)};
+
+        STOREDIMAGE.crossOrigin = 'anonymous';
+
+        STOREDIMAGE.src = url;
+
+        // TODO: Why is this hack necessary? onload doesn't always fire
+        imgToCanvas(STOREDIMAGE);
     }
 
 
@@ -62,15 +74,17 @@
             var reader = new FileReader();
             /// Load file data to the image object that FabricJS requires
             reader.onload = function(event){
-                //var imgData = new Image();
-                var imgData = document.getElementById("placeholder");
-                imgData.crossOrigin = 'anonymous';
-                imgData.src = event.target.result;
 
-                // TODO: get loading working
-                //imgData.onload = function(){
-                //    imgToCanvas(this);
-                //};
+                STOREDIMAGE = null;
+                STOREDIMAGE = new Image();
+                STOREDIMAGE.onload = function(){imgToCanvas(this)};
+
+                STOREDIMAGE.crossOrigin = 'anonymous';
+
+                STOREDIMAGE.src = event.target.result;
+
+                // TODO: Why is this hack necessary? onload not firing = grr
+                imgToCanvas(STOREDIMAGE);
             };
             reader.readAsDataURL(blob);
         }
@@ -115,6 +129,7 @@
 
     function greyScaleImg(canvas){
         // Given a canvas rendering of an image, convert to greyscale
+        // This algorithm only works if the image starts out in greyscale
         var ctx = canvas.getContext("2d");
 
         //grayscale the image
@@ -140,7 +155,7 @@
 
      function recolorImg(grdCanvas){
          // Apply the given gradient data to an image
-         imgToCanvas(document.getElementById("placeholder")); // Always recolor from original image to avoid loss of color when two gradients applied in sequence
+         imgToCanvas(STOREDIMAGE); // Always recolor from original image to avoid loss of color when two gradients applied in sequence
 
          var imgCvs = document.getElementById("display_image");
          var imgCtx = imgCvs.getContext('2d');
@@ -175,12 +190,11 @@
 
         // TODO: reimplement this as a new fabric filter for every gradient a la redify implementation
      }
-</script>
+  </script>
 </head>
 <body>
   <div>
       <canvas id="display_image"></canvas>
-      <img src="" id="placeholder" onload="imgToCanvas(this)" onchange="imgToCanvas(this)" style="display: none;">
   </div>
 
   <form>
