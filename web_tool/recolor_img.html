@@ -2,6 +2,7 @@
 <html>
 <head lang="en">
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
   <style>
    body {
      margin: 0px;
@@ -9,9 +10,19 @@
        font-family: sans-serif;
    }
    #display_image {
-     border: 1px solid #9C9898;
+       border: 1px solid #9C9898;
    }
+
+   .gradient {
+       padding: 5px 5px 0px 0px;
+   }
+   .gradient > canvas {
+       padding-left: 10px;
+   }
+
+
   </style>
+
   <script language="JavaScript" src="js/gradient_data.js"></script>
   <script>
 
@@ -19,7 +30,7 @@
 
     window.onload = function() {
 
-        imageFromURL("../sample/deposition/paper_fig1d_magnified.png");  // TODO remove
+        imageFromURL("../sample/deposition/paper_fig1d_magnified.png");  // TODO for debugging only
 
         var k;
         for (k in lowCycle){
@@ -52,7 +63,6 @@
 
     function imageFromURL(url){
         //var imgData = new Image();
-        STOREDIMAGE = null;
         STOREDIMAGE = new Image();
         STOREDIMAGE.onload = function(){imgToCanvas(this)};
 
@@ -74,8 +84,6 @@
             var reader = new FileReader();
             /// Load file data to the image object that FabricJS requires
             reader.onload = function(event){
-
-                STOREDIMAGE = null;
                 STOREDIMAGE = new Image();
                 STOREDIMAGE.onload = function(){imgToCanvas(this)};
 
@@ -117,14 +125,12 @@
          var label = document.createTextNode(grad_name);
          container.appendChild(label);
          container.appendChild(grdCanvas);
+         container.className = "gradient";
          gradientBox.appendChild(container);
 
          // Add event listener only after gradient filled in
          grdCanvas.onclick = function(){ recolorImg(grdCanvas); //recolorImg(grdCanvas)
          };
-
-         // TODO Implement putimagedata() to change data on canvas later
-         // TODO: implement display of chosen gradients
      }
 
     function greyScaleImg(canvas){
@@ -187,24 +193,32 @@
              }}
          imgData.data = imgRecolor;
          imgCtx.putImageData(imgData, 0, 0);
-
-        // TODO: reimplement this as a new fabric filter for every gradient a la redify implementation
      }
   </script>
 </head>
 <body>
-  <div>
-      <canvas id="display_image"></canvas>
+  <div class="row">
+    <div class="col-md-2"></div>
+
+    <div class="col-md-10">
+    <h2>Suspect image recoloring tool</h2>
+
+    <div>
+        <canvas id="display_image" width="500" height="500"></canvas>
+    </div>
+
+    <form>
+      <p>Select an image file to preview: <input type="file" id="pick_image" onchange="renderFile(event)"/></p>
+        <p><a href="#" onclick="saveCanvas(this)" download="recolor.png" class="btn btn-primary btn-lg">Save image data</a></p>
+        <!-- TODO: This feature doesn't seem to work for remote urls; no error messages
+          <p> OR enter the URL of an image on the web: <input type="text" onchange="imageFromURL(this.value)"/></p>
+        -->
+    </form>
+
+    <div id="gradients"></div>
+
+    </div>
+    <div class="col-md-2"></div>
   </div>
-
-  <form>
-    <p>Select an image file to preview: <input type="file" id="pick_image" onchange="renderFile(event)"/></p>
-      <p><a href="#" onclick="saveCanvas(this)" download="recolor.png">Save image data</a></p>
-      <!-- TODO: This feature doesn't seem to work for remote urls; no error messages
-        <p> OR enter the URL of an image on the web: <input type="text" onchange="imageFromURL(this.value)"/></p>
-      -->
-  </form>
-
-  <div id="gradients"></div>
 </body>
 </html>
