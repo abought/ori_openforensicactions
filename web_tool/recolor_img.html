@@ -59,6 +59,9 @@
         ctx.drawImage(imgData, 0, 0);
 
         greyScaleImg(canvas);
+
+        // Once image is loaded, enable the save link
+        document.getElementById("save_button").removeAttribute("disabled");
     }
 
     function imageFromURL(url){
@@ -209,7 +212,7 @@
 
     <form>
       <p>Select an image file to preview: <input type="file" id="pick_image" onchange="renderFile(event)"/></p>
-        <p><a href="#" onclick="saveCanvas(this)" download="recolor.png" class="btn btn-primary btn-lg">Save image data</a></p>
+        <p><a href="#" id="save_button" onclick="saveCanvas(this)" download="recolor.png" class="btn btn-primary btn-lg" disabled>Save image data</a></p>
         <!-- TODO: This feature doesn't seem to work for remote urls; no error messages
           <p> OR enter the URL of an image on the web: <input type="text" onchange="imageFromURL(this.value)"/></p>
         -->
