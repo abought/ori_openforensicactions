@@ -30,7 +30,8 @@
 
     window.onload = function() {
 
-        imageFromURL("../sample/deposition/paper_fig1d_magnified.png");  // TODO for debugging only
+        //imageFromURL("../sample/deposition/paper_fig1d_magnified.png");  // TODO for debugging only
+        imageFromURL("img/nanoparticle_tem_chembark.jpg");  // TODO for debugging only
 
         var k;
         for (k in lowCycle){
@@ -138,10 +139,8 @@
 
     function greyScaleImg(canvas){
         // Given a canvas rendering of an image, convert to greyscale
-        // This algorithm only works if the image starts out in greyscale
         var ctx = canvas.getContext("2d");
 
-        //grayscale the image
         var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         var data = imageData.data;
 
