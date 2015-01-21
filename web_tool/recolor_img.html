@@ -9,10 +9,14 @@
       padding: 0px;
        font-family: sans-serif;
    }
+
    #display_image {
-       border: 1px solid #9C9898;
+       border: 1px dashed #9C9898;
    }
 
+   #gradients {
+       padding-bottom: 25px;
+   }
    .gradient {
        padding: 5px 5px 0px 0px;
    }
@@ -24,8 +28,16 @@
 
   </style>
 
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
   <script language="JavaScript" src="js/gradient_data.js"></script>
   <script>
+      //setup tabbar controller
+      $(function() {
+        $( "#tabs" ).tabs();
+      });
 
     var STOREDIMAGE = new Image(); // Store the image data apart from the canvas
 
@@ -44,6 +56,7 @@
         for (k in highCycle){
             addGradient(k, highCycle[k]);
         }
+
     };
 
     function imgToCanvas(imgData){
@@ -64,6 +77,7 @@
 
         // Once image is loaded, enable the save link
         document.getElementById("save_button").removeAttribute("disabled");
+        document.getElementById("gradients").style.display = "";
     }
 
     function imageFromURL(url){
@@ -85,8 +99,6 @@
         if (!blob.type.match("image.*")) {
             console.log('Specified file blob is not an image')
         } else {
-            var canvas = document.getElementById('display_image');
-
             var reader = new FileReader();
             /// Load file data to the image object that FabricJS requires
             reader.onload = function(event){
@@ -201,26 +213,48 @@
   </script>
 </head>
 <body class="container">
+<h2>Suspect image recoloring tool</h2>
+
   <div class="row">
     <div class="col-md-1"></div>
-
-    <div class="col-md-10">
-    <h2>Suspect image recoloring tool</h2>
-
-    <div>
-        <canvas id="display_image" width="500" height="500"></canvas>
-    </div>
-
-    <form>
-      <p>Select an image file to preview: <input type="file" id="pick_image" onchange="renderFile(event)"/></p>
-        <p><a href="#" id="save_button" onclick="saveCanvas(this)" download="recolor.png" class="btn btn-primary btn-lg" disabled>Save image data</a></p>
-        <p> OR enter the URL of an image on the web: <input type="text" onchange="imageFromURL(this.value)"/></p>
-    </form>
-
-    <div id="gradients"></div>
-
+    <div class="col-md-10 center-block">
+        <div>
+            <canvas id="display_image" width="500" height="200" class="center-block"></canvas>
+        </div>
     </div>
     <div class="col-md-1"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+        <div id="tabs">
+            <!--  TODO: reconcile bootstrap and jqueryui tab widgets; make styling and active selector look good (and centered!)-->
+            <ul class="nav nav-tabs">
+                <li><a href="#tabs-1">Select file</a></li>
+                <li><a href="#tabs-2">Enter URL</a></li>
+            </ul>
+
+            <div id="tabs-1">
+                Select an image file from your local computer  <input type="file" id="pick_image" onchange="renderFile(event)"/>
+            </div>
+            <div id="tabs-2">
+                Enter the URL of an image on the web: <input type="text" onchange="imageFromURL(this.value)"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+      <a href="#" id="save_button" onclick="saveCanvas(this)" download="recolor.png" class="btn btn-primary btn-lg" disabled>Save image data</a>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+
+  <div class="row">
+      <div class="col-md-2"></div>
+
+      <div id="gradients" class="col-md-8" style="display:none;"></div>
+
+      <div class="col-md-2"></div>
+  </div>
   </div>
 </body>
 </html>
