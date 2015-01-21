@@ -3,37 +3,15 @@
 <head lang="en">
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-  <style>
-   body {
-     margin: 0px;
-      padding: 0px;
-       font-family: sans-serif;
-   }
-
-   #display_image {
-       border: 1px dashed #9C9898;
-   }
-
-   #gradients {
-       padding-bottom: 25px;
-   }
-   .gradient {
-       padding: 5px 5px 0px 0px;
-   }
-   .gradient > canvas {
-       padding-left: 10px;
-       float:right;
-   }
-
-
-  </style>
-
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="css/gradient_tool.css">
+
   <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
   <script language="JavaScript" src="js/gradient_data.js"></script>
-  <script>
+
+    <script>
       //setup tabbar controller
       $(function() {
         $( "#tabs" ).tabs();
@@ -89,11 +67,7 @@
         STOREDIMAGE.onload = function(){imgToCanvas(STOREDIMAGE)};
 
         STOREDIMAGE.src = url;
-
-        // TODO: Why is this hack necessary? onload doesn't always fire
-        //imgToCanvas(STOREDIMAGE);
     }
-
 
     function imageFromFileBlob(blob){
         if (!blob.type.match("image.*")) {
@@ -108,9 +82,6 @@
                 STOREDIMAGE.onload = function(){imgToCanvas(STOREDIMAGE)};
 
                 STOREDIMAGE.src = event.target.result;
-
-                // TODO: Why is this hack necessary? onload not firing = grr
-                //imgToCanvas(STOREDIMAGE);
             };
             reader.readAsDataURL(blob);
         }
@@ -121,35 +92,34 @@
         imageFromFileBlob(img_blob);
     }
 
+    function addGradient(grad_name, color_stops){
+     // Add a new rectangular canvas with fill representing specified gradient
+     var gradientBox = document.getElementById("gradients");
 
-     function addGradient(grad_name, color_stops){
-         // Add a new rectangular canvas with fill representing specified gradient
-         var gradientBox = document.getElementById("gradients");
+     var grdCanvas = document.createElement("canvas");
+     grdCanvas.width = 256;
+     grdCanvas.height = 20;
 
-         var grdCanvas = document.createElement("canvas");
-         grdCanvas.width = 256;
-         grdCanvas.height = 20;
+     var ctx = grdCanvas.getContext('2d');
+     var grd = ctx.createLinearGradient(0, 0, grdCanvas.width, 0);
 
-         var ctx = grdCanvas.getContext('2d');
-         var grd = ctx.createLinearGradient(0, 0, grdCanvas.width, 0);
-
-         for (var i=0; i < color_stops.length; i++){
-             grd.addColorStop(color_stops[i][0], color_stops[i][1]);
-         }
-         ctx.fillStyle = grd;
-         ctx.fillRect(0, 0, grdCanvas.width, grdCanvas.height);
-
-         var container = document.createElement('div');
-         var label = document.createTextNode(grad_name);
-         container.appendChild(label);
-         container.appendChild(grdCanvas);
-         container.className = "gradient";
-         gradientBox.appendChild(container);
-
-         // Add event listener only after gradient filled in
-         grdCanvas.onclick = function(){ recolorImg(grdCanvas); //recolorImg(grdCanvas)
-         };
+     for (var i=0; i < color_stops.length; i++){
+         grd.addColorStop(color_stops[i][0], color_stops[i][1]);
      }
+     ctx.fillStyle = grd;
+     ctx.fillRect(0, 0, grdCanvas.width, grdCanvas.height);
+
+     var container = document.createElement('div');
+     var label = document.createTextNode(grad_name);
+     container.appendChild(label);
+     container.appendChild(grdCanvas);
+     container.className = "gradient";
+     gradientBox.appendChild(container);
+
+     // Add event listener only after gradient filled in
+     grdCanvas.onclick = function(){ recolorImg(grdCanvas); //recolorImg(grdCanvas)
+     };
+    }
 
     function greyScaleImg(canvas){
         // Given a canvas rendering of an image, convert to greyscale
@@ -175,41 +145,41 @@
         linkEl.href = canvas.toDataURL('image/png');
     }
 
-     function recolorImg(grdCanvas){
-         // Apply the given gradient data to an image
-         imgToCanvas(STOREDIMAGE); // Always recolor from original image to avoid loss of color when two gradients applied in sequence
+    function recolorImg(grdCanvas){
+     // Apply the given gradient data to an image
+     imgToCanvas(STOREDIMAGE); // Always recolor from original image to avoid loss of color when two gradients applied in sequence
 
-         var imgCvs = document.getElementById("display_image");
-         var imgCtx = imgCvs.getContext('2d');
-         var imgData = imgCtx.getImageData(0, 0, imgCvs.width, imgCvs.height);
+     var imgCvs = document.getElementById("display_image");
+     var imgCtx = imgCvs.getContext('2d');
+     var imgData = imgCtx.getImageData(0, 0, imgCvs.width, imgCvs.height);
 
 
-         var imgOrig = imgData.data;
-         var imgRecolor = imgData.data;
+     var imgOrig = imgData.data;
+     var imgRecolor = imgData.data;
 
-         var grdCtx = grdCanvas.getContext('2d');
-         var grdData = grdCtx.getImageData(0, 0, grdCanvas.width, grdCanvas.height);
-         var grdArr = grdData.data;
+     var grdCtx = grdCanvas.getContext('2d');
+     var grdData = grdCtx.getImageData(0, 0, grdCanvas.width, grdCanvas.height);
+     var grdArr = grdData.data;
 
-         // TODO: for every pixel in array,
-         // colorization method from: http://podeplace.blogspot.com/2012/12/pseudocolorisation-with-javascript.html
-         for(var y = 0; y < imgCvs.height; y++) {
-             for (var x = 0; x < imgCvs.width; x++) {
-                 var index = (x + y * imgCvs.width) * 4;
+     // TODO: for every pixel in array,
+     // colorization method from: http://podeplace.blogspot.com/2012/12/pseudocolorisation-with-javascript.html
+     for(var y = 0; y < imgCvs.height; y++) {
+         for (var x = 0; x < imgCvs.width; x++) {
+             var index = (x + y * imgCvs.width) * 4;
 
-                 //we grab the color from one channel (the red one)
-                 var luminosityValue = imgOrig[index + 0];
+             //we grab the color from one channel (the red one)
+             var luminosityValue = imgOrig[index + 0];
 
-                 //we retrieve the corresponding (R,G,B) triplet from the colormap
-                 //we rewrite the new color
-                 imgRecolor[index + 0] = grdArr[luminosityValue * 4 + 0]; //R
-                 imgRecolor[index + 1] = grdArr[luminosityValue * 4 + 1]; //G
-                 imgRecolor[index + 2] = grdArr[luminosityValue * 4 + 2]; //B
-                 //dataRes[index+3] = 255; //no need to change alpha value
-             }}
-         imgData.data = imgRecolor;
-         imgCtx.putImageData(imgData, 0, 0);
-     }
+             //we retrieve the corresponding (R,G,B) triplet from the colormap
+             //we rewrite the new color
+             imgRecolor[index + 0] = grdArr[luminosityValue * 4 + 0]; //R
+             imgRecolor[index + 1] = grdArr[luminosityValue * 4 + 1]; //G
+             imgRecolor[index + 2] = grdArr[luminosityValue * 4 + 2]; //B
+             //dataRes[index+3] = 255; //no need to change alpha value
+         }}
+     imgData.data = imgRecolor;
+     imgCtx.putImageData(imgData, 0, 0);
+    }
   </script>
 </head>
 <body class="container">
@@ -235,10 +205,10 @@
             </ul>
 
             <div id="tabs-1">
-                Select an image file from your local computer  <input type="file" id="pick_image" onchange="renderFile(event)"/>
+                <label for="pick_image">Select an image file from your local computer:</label> <input type="file" id="pick_image" onchange="renderFile(event)"/>
             </div>
             <div id="tabs-2">
-                Enter the URL of an image on the web: <input type="text" onchange="imageFromURL(this.value)"/>
+                <label for="pick_url">Enter the URL of an image on the web:</label> <input id="pick_url" type="text" onchange="imageFromURL(this.value)"/>
             </div>
         </div>
     </div>
@@ -254,7 +224,6 @@
       <div id="gradients" class="col-md-8" style="display:none;"></div>
 
       <div class="col-md-2"></div>
-  </div>
   </div>
 </body>
 </html>
