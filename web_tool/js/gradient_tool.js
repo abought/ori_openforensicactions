@@ -2,7 +2,7 @@
  * Created by abought on 1/21/15.
  */
 
-"use strict";
+//"use strict";
 
 var GradientTool = function(){
     // Store image data apart from canvas
@@ -112,8 +112,8 @@ var GradientTool = function(){
     };
 
     this.saveCanvas = function(linkEl){
-        // Save the modified/ recolored image data to a file
-        linkEl.href = canvas.toDataURL('image/png');
+        // Provide a link so the user can save the modified/ recolored image data to a file
+        linkEl.href = this.canvas.toDataURL('image/png');
     };
 
     this.recolorImg = function(grdCanvas){

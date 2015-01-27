@@ -4,22 +4,15 @@
     <meta charset="UTF-8">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="css/gradient_tool.css">
 
-    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="js/imagesloaded.js"></script>
 
     <script language="JavaScript" src="js/gradient_data.js"></script>
     <script language="JavaScript" src="js/gradient_tool.js"></script>
 
     <script>
-      //setup tabbar controller
-      $(function() {
-        $( "#tabs" ).tabs();
-      });
-
-    //var STOREDIMAGE = new Image(); // Store the image data apart from the canvas
     var GradientApp = new GradientTool();
 
 
@@ -58,23 +51,10 @@
   <div class="row" style="margin-top:10px; margin-bottom: 10px;">
     <div class="col-md-1"></div>
     <div class="col-md-6">
-        <div id="tabs">
-            <!--  TODO: reconcile bootstrap and jqueryui tab widgets; make styling and active selector look good (and centered!)-->
-            <ul class="nav nav-tabs">
-                <li><a href="#tabs-1">Select file</a></li>
-                <li><a href="#tabs-2">Enter URL</a></li>
-            </ul>
-
-            <div id="tabs-1">
-                <label for="pick_image">Select an image file from your local computer:</label> <input type="file" id="pick_image" onchange="renderFile(event)"/>
-            </div>
-            <div id="tabs-2">
-                <label for="pick_url">Enter the URL of an image on the web:</label> <input id="pick_url" type="text" onchange="imageFromURL(this.value)"/>
-            </div>
-        </div>
+        <label for="pick_image">Select an image file from your local computer:</label> <input type="file" id="pick_image" onchange="GradientApp.renderFile(event)"/>
     </div>
     <div class="col-md-4">
-      <a href="#" id="save_button" onclick="saveCanvas(this)" download="recolor.png" class="btn btn-primary btn-lg" disabled>Save image data</a>
+      <a href="#" id="save_button" onclick="GradientApp.saveCanvas(this)" download="recolor.png" class="btn btn-primary btn-lg" disabled>Save image data</a>
     </div>
     <div class="col-md-1"></div>
   </div>
