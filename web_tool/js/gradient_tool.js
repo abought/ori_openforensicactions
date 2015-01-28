@@ -7,9 +7,8 @@
 var GradientTool = function(){
     // Store image data apart from canvas
     this.storedImage = new Image();
-    this.storedImage.crossOrigin = 'anonymous'; //'use-credentials';
     var that = this;
-    this.storedImage.onload = function(){that.imgToCanvas(this)};  // TODO: What is "this" in context?
+    this.storedImage.onload = function(){that.imgToCanvas(this)};
 
     this.setElements = function(canvas, saveButton, gradientsBox){
         // Configure the divs required once page has loaded
