@@ -456,7 +456,7 @@ var midCycle = {
             "rgb(248, 230, 0)"
         ]
     ],
-    "PresetsGradientsMetals_grdSilverSilver": [
+    "SilverSilver": [
         [
             0.0,
             "rgb(83, 91, 94)"
@@ -747,7 +747,7 @@ var highCycle = {
             "rgb(255, 240, 218)"
         ]
     ],
-    "PresetsGradientsMetals_grdGoldGold": [
+    "GoldGold": [
         [
             0.0,
             "rgb(255, 204, 59)"
