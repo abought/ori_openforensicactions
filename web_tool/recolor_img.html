@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/gradient_tool.css">
+
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+    <script language="JavaScript" src="js/gradient_data.js"></script>
+    <script language="JavaScript" src="js/gradient_tool.js"></script>
+
+    <script>
+    var GradientApp = new GradientTool();
+
+
+    window.onload = function() {
+        GradientApp.setElements(
+                document.getElementById("display_image"),
+                document.getElementById("save_button"),
+                document.getElementById("gradients"));
+
+        var k;
+        for (k in lowCycle){
+            GradientApp.addGradient(k, lowCycle[k]);
+        }
+        for (k in midCycle){
+            GradientApp.addGradient(k, midCycle[k]);
+        }
+        for (k in highCycle){
+            GradientApp.addGradient(k, highCycle[k]);
+        }
+    };
+
+  </script>
+</head>
+<body class="container">
+<h2>Suspect image recoloring tool</h2>
+
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 center-block">
+        <div>
+            <canvas id="display_image" width="500" height="200" class="center-block"></canvas>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+  <div class="row" style="margin-top:10px; margin-bottom: 10px;">
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+        <label for="pick_image">Select an image file from your local computer:</label> <input type="file" id="pick_image" onchange="GradientApp.renderFile(event)"/>
+    </div>
+    <div class="col-md-4">
+      <a href="#" id="save_button" onclick="GradientApp.saveCanvas(this)" download="recolor.png" class="btn btn-primary btn-lg" disabled>Save image data</a>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+
+  <div class="row">
+      <div class="col-md-2"></div>
+
+      <div id="gradients" class="col-md-8" style="display:none;">
+          <h3>Choose a gradient to apply to the image...</h3>
+      </div>
+
+      <div class="col-md-2"></div>
+  </div>
+</body>
+</html>
